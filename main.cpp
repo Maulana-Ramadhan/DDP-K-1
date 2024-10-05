@@ -24,10 +24,10 @@ bool validasiSaldo(int a) {
 	if (saldo - a >= 0) return true;
 	else return false;
 }
-
 int topUpPilihGame() { 
 	int game;
-  cin >> game;	
+  cin >> game;
+  if (game == 0) return 0;
   if (!(game == 1 || game == 2 || game == 3)) {
     cout << "pilihan tidak tersedia, coba pilih ulang: ";
     return topUpPilihGame();
@@ -37,6 +37,7 @@ int topUpPilihGame() {
 int topUpId(int game) {
   int Id;
   cin >> Id;
+  if (Id == 0) return 0;
   switch(game) {
     case 1: if (Id != IdMobileLegend) {
       cout << "id tidak ditemukan, coba ulangi: " << endl;
@@ -56,6 +57,7 @@ int topUpId(int game) {
 int topUpDapatHarga(int game, int Id) {
   int harga;
   cin >> harga;
+  if (harga == 0) return 0;
   if (!(harga == 1 || harga == 2 || harga == 3)) {
     cout << "pilihan tidak tersedia, coba pilih ulang: ";
     return topUpDapatHarga(game, Id);
@@ -116,6 +118,17 @@ int topUpDapat(int game, int Id, int DapatHarga) {
   }
   return Harga;
 }
+int topUpConfirm() {
+  long nomorHp, passwordHp;
+  cout << "username saldo\t: "; cin >> nomorHp; 
+  cout << "pin saldo\t: "; cin >> passwordHp;
+  if (nomorHp == 0 || passwordHp == 0) return 0;
+  if(!(nomorHp == usernameSaldo && pinSaldo == passwordHp)) {
+    cout << "username rekening atau pin rekening tidak ditemukan, silakan coba lagi" << endl;
+    topUpConfirm();
+  }
+  return 1;
+}
 void topUpTransaksi(int game, int Dapat, int Harga) {
   if(validasiSaldo(Harga)) {
     if (game == 1) mobileLegendDiamond += Dapat, saldo -= Harga; 
@@ -124,7 +137,6 @@ void topUpTransaksi(int game, int Dapat, int Harga) {
     cout << "------------------------" << endl;
     cout << "<<TRANSAKSI BERHASIL!!>>" << endl;
     cout << "------------------------" << endl;
-    cout << "\t" << saldo << endl;
   } else {
     cout << "------------------------" << endl;
     cout << "<<SALDO TIDAK MENCUKUI!!>>" << endl;
@@ -132,45 +144,53 @@ void topUpTransaksi(int game, int Dapat, int Harga) {
   }
 }
 void topUp() {
+  int game = 0, Id = 0, DapatHarga = 0, Dapat = 0, Harga = 0, confirm = 0;
   system("clear");
   cout << "Pilih game: " << endl;
   cout << "1. Mobile Legends" << endl;
   cout << "2. PUBG" << endl;
   cout << "3. Genshin Impact" << endl;
   cout << "Pilihlah sesuai yang tersedia: ";
-  int game = topUpPilihGame();
-  garisHorizontal();
-  cout << "masukkan Id game anda: "; 
-  int Id = topUpId(game);
-  garisHorizontal();
-  switch(game) {
-	  case 1: 
-  	  cout << "PILIH MENU: " << endl;
-  	  cout << "1. 44 DIAMOND = Rp. 11.000" << endl;
-  	  cout << "2. 875 DIAMOND = Rp. 218.000" << endl;
-      cout << "3. 4830 DIAMOND = Rp. 1.140.000" << endl;
-      break;
-    case 2: 
-      cout << "PILIH MENU: " << endl;
-      cout << "1. 60 UC = Rp. 15.000" << endl;
-      cout << "2. 1.800 UC = Rp. Rp.375.000" << endl;
-      cout << "3. 8.100 UC = Rp. 1.500.000" << endl;
-      break;
-    case 3:
-      cout << "PILIH MENU: " << endl;
-      cout << "1. 60 Genesis Crystals = Rp. 14.000" << endl;
-      cout << "2. 1090 Genesis Crystals = Rp. 230.000" << endl;
-      cout << "3. 8080 Genesis Crystals = Rp. 1.470.000" << endl;
-      break;
-    default: cout << "pilihan tidak tersedia";
-	}
-	cout << "Pilihlah sesuai yang tersedia: ";
-  int DapatHarga = topUpDapatHarga(game, Id);
-  int Dapat = topUpHarga(game, Id, DapatHarga);
-  int Harga = topUpDapat(game, Id, DapatHarga);
-  garisHorizontal();
+  game = topUpPilihGame();
+  if (game != 0) {
+    garisHorizontal();
+    cout << "masukkan Id game anda: "; 
+    Id = topUpId(game);
+  }
+  if (Id != 0) {
+    garisHorizontal();
+    switch(game) {
+  	  case 1: 
+    	  cout << "PILIH MENU: " << endl;
+    	  cout << "1. 44 DIAMOND\t= Rp. 11.000" << endl;
+    	  cout << "2. 875 DIAMOND\t= Rp. 218.000" << endl;
+        cout << "3. 4830 DIAMOND\t= Rp. 1.140.000" << endl;
+        break;
+      case 2: 
+        cout << "PILIH MENU: " << endl;
+        cout << "1. 60 UC\t= Rp. 15.000" << endl;
+        cout << "2. 1.800 UC\t= Rp. Rp.375.000" << endl;
+        cout << "3. 8.100 UC\t= Rp. 1.500.000" << endl;
+        break;
+      case 3:
+        cout << "PILIH MENU: " << endl;
+        cout << "1. 60 Genesis Crystals\t= Rp. 14.000" << endl;
+        cout << "2. 1090 Genesis Crystals\t= Rp. 230.000" << endl;
+        cout << "3. 8080 Genesis Crystals\t= Rp. 1.470.000" << endl;
+        break;
+      default: cout << "pilihan tidak tersedia";
+  	}
+  	cout << "Pilihlah sesuai yang tersedia: ";
+    DapatHarga = topUpDapatHarga(game, Id);
+  }
+  if (DapatHarga != 0) {
+    Dapat = topUpHarga(game, Id, DapatHarga);
+    Harga = topUpDapat(game, Id, DapatHarga);
+    garisHorizontal();
+    confirm = topUpConfirm();
+  }
   system("clear");
-  topUpTransaksi(game, Dapat, Harga);
+  if (confirm != 0) topUpTransaksi(game, Dapat, Harga);
 }
 /*---------------------------------------------------------------------*/
 
