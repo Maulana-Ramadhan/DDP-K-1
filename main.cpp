@@ -12,7 +12,7 @@ int genshinImpactGenesisCrystals = 0;
 long IdMobileLegend = 12345678;
 long IdPUBG = 12345678;
 long IdGenshinImpact = 12345678;
-long usernameSaldo = 98765432;
+long usernameSaldo = 87654321;
 int pinSaldo = 1234;
 
 //Token Listrik
@@ -20,7 +20,7 @@ int ListrikRumah = 0;
 long NomorListrikRumah = 12345678;
 
 void garisHorizontal() {
-    cout << endl << "--------------------------------------------" << endl;
+    cout << "--------------------------------------------" << endl;
 }
 
 /* function-function top-up --------------------------------------------*/
@@ -39,18 +39,6 @@ int topUpPilihGame() {
     }
     return game;
 }
-
-int topUpPilihListrik() {
-    int listrik;
-    cin >> listrik;
-    if (listrik == 0) return 0;
-    if (listrik != 1) {
-        cout << "Pilihan tidak tersedia, coba pilih ulang: ";
-        return topUpPilihListrik();
-    }
-    return listrik;
-}
-
 int topUpId(int game) {
     long Id;
     cin >> Id;
@@ -58,37 +46,25 @@ int topUpId(int game) {
     switch(game) {
         case 1: 
             if (Id != IdMobileLegend) {
-                cout << "ID tidak ditemukan, coba ulangi: " << endl;
+                cout << "ID tidak ditemukan, coba ulangi: ";
                 return topUpId(game);
             }
             break;
         case 2: 
             if (Id != IdPUBG) {
-                cout << "ID tidak ditemukan, coba ulangi: " << endl;
+                cout << "ID tidak ditemukan, coba ulangi: ";
                 return topUpId(game);
             }
             break;
         case 3: 
             if (Id != IdGenshinImpact) {
-                cout << "ID tidak ditemukan, coba ulangi: " << endl;
+                cout << "ID tidak ditemukan, coba ulangi: ";
                 return topUpId(game);
             }
             break;
     }
     return Id;
 }
-
-int topUpNolistrik() {
-    long No;
-    cin >> No;
-    if (No == 0) return 0;
-    if (No != NomorListrikRumah) {
-        cout << "Nomor listrik rumah anda tidak ditemukan, coba ulangi: " << endl;
-        return topUpNolistrik();
-    }
-    return No;
-}
-
 int topUpDapatHarga(int game) {
     int harga;
     cin >> harga;
@@ -99,18 +75,6 @@ int topUpDapatHarga(int game) {
     }
     return harga;
 }
-
-int topUpDapatHargaListrik() {
-    int hargaListrik;
-    cin >> hargaListrik;
-    if (hargaListrik == 0) return 0;
-    if (!(hargaListrik >= 1 && hargaListrik <= 5)) {
-        cout << "Pilihan tidak tersedia, coba pilih ulang: ";
-        return topUpDapatHargaListrik();
-    }
-    return hargaListrik;
-}
-
 int topUpHarga(int game, int DapatHarga) {
     int Dapat;
     switch(game) {
@@ -147,22 +111,6 @@ int topUpHarga(int game, int DapatHarga) {
     }
     return Dapat;
 }
-
-int topUpHargaListrik(int HargaListrik) {
-    int Token;
-    switch(HargaListrik) {
-        case 1: Token = 100000; break;
-        case 2: Token = 200000; break;
-        case 3: Token = 300000; break;
-        case 4: Token = 400000; break;
-        case 5: Token = 500000; break;
-        default:
-            cout << "Pilihan tidak tersedia, coba pilih ulang: ";
-            return topUpHargaListrik(HargaListrik);
-    }
-    return Token;
-}
-
 int topUpDapat(int game, int DapatHarga) {
     int Harga;
     switch(game) {
@@ -199,20 +147,6 @@ int topUpDapat(int game, int DapatHarga) {
     }
     return Harga;
 }
-
-int topUpConfirm() {
-    long nomorHp;
-    int passwordHp;
-    cout << "Username saldo\t: "; cin >> nomorHp;
-    cout << "Pin saldo\t: "; cin >> passwordHp;
-    if (nomorHp == 0 || passwordHp == 0) return 0;
-    if (!(nomorHp == usernameSaldo && passwordHp == pinSaldo)) {
-        cout << "Username atau pin tidak ditemukan, silakan coba lagi" << endl;
-        return topUpConfirm();
-    }
-    return 1;
-}
-
 void topUpTransaksi(int game, int Dapat, int Harga) {
     if(validasiSaldo(Harga)) {
         if (game == 1) mobileLegendDiamond += Dapat, saldo -= Harga;
@@ -228,6 +162,63 @@ void topUpTransaksi(int game, int Dapat, int Harga) {
     }
 }
 
+int topUpConfirm() {
+    long nomorHp;
+    int passwordHp;
+    cout << "Username saldo\t: "; cin >> nomorHp;
+    cout << "Pin saldo\t: "; cin >> passwordHp;
+    if (nomorHp == 0 || passwordHp == 0) return 0;
+    if (!(nomorHp == usernameSaldo && passwordHp == pinSaldo)) {
+        cout << "Username atau pin tidak ditemukan, silakan coba lagi" << endl;
+        return topUpConfirm();
+    }
+    return 1;
+}
+
+int topUpPilihListrik() {
+    int listrik;
+    cin >> listrik;
+    if (listrik == 0) return 0;
+    if (listrik != 1) {
+        cout << "Pilihan tidak tersedia, coba pilih ulang: ";
+        return topUpPilihListrik();
+    }
+    return listrik;
+}
+int topUpNolistrik() {
+    long No;
+    cin >> No;
+    if (No == 0) return 0;
+    if (No != NomorListrikRumah) {
+        cout << "Nomor listrik rumah anda tidak ditemukan, coba ulangi: " << endl;
+        return topUpNolistrik();
+    }
+    return No;
+}
+int topUpDapatHargaListrik() {
+    int hargaListrik;
+    cin >> hargaListrik;
+    if (hargaListrik == 0) return 0;
+    if (!(hargaListrik >= 1 && hargaListrik <= 5)) {
+        cout << "Pilihan tidak tersedia, coba pilih ulang: ";
+        return topUpDapatHargaListrik();
+    }
+    return hargaListrik;
+}
+int topUpHargaListrik(int HargaListrik) {
+    int Token;
+    switch(HargaListrik) {
+        case 1: Token = 100000; break;
+        case 2: Token = 200000; break;
+        case 3: Token = 300000; break;
+        case 4: Token = 400000; break;
+        case 5: Token = 500000; break;
+        default:
+            cout << "Pilihan tidak tersedia, coba pilih ulang: ";
+            return topUpHargaListrik(HargaListrik);
+    }
+    return Token;
+}
 void topUpTransaksiListrik(int Token, int HargaListrik) {
     if(validasiSaldo(HargaListrik)) {
         ListrikRumah += Token, saldo -= HargaListrik;
@@ -241,102 +232,114 @@ void topUpTransaksiListrik(int Token, int HargaListrik) {
     }
 }
 
-void topUpMainMenu() {
-    system("cls");
-    int menuUtama;
-    do {
-        cout << "=============MENU UTAMA=============" << endl;
-        cout << "Saldo Anda Rp" << saldo << endl;
-        garisHorizontal();
-        cout << "1. Top Up Game\n";
-        cout << "2. Token Listrik\n";
-        cout << "0. Keluar\n";
-        garisHorizontal();
-        cout << "Pilih menu: "; cin >> menuUtama;
 
-        if (menuUtama == 1) {
-            system("cls");
-            cout << "=============TOP UP=============" << endl;
-            garisHorizontal();
-            cout << "Game yang tersedia:\n";
-            cout << "1. Mobile Legend\n";
-            cout << "2. PUBG\n";
-            cout << "3. Genshin Impact\n";
-            cout << "0. Kembali\n";
-            garisHorizontal();
-            cout << "Pilih Game: "; 
-            int game = topUpPilihGame();
-            if (game == 0) topUpMainMenu();
-            else {
-                garisHorizontal();
-                cout << "ID Game: "; int Id = topUpId(game);
-                if (Id == 0) topUpMainMenu();
-                else {
-                    garisHorizontal();
-                    cout << "Nominal Pembelian:\n";
-                    cout << "1. Kecil\n";
-                    cout << "2. Sedang\n";
-                    cout << "3. Besar\n";
-                    garisHorizontal();
-                    cout << "Pilih Nominal: "; int Harga = topUpDapatHarga(game);
-                    if (Harga == 0) topUpMainMenu();
-                    else {
-                        garisHorizontal();
-                        if (topUpConfirm() == 0) topUpMainMenu();
-                        else {
-                            int Dapat = topUpHarga(game, Harga);
-                            int HargaFix = topUpDapat(game, Harga);
-                            topUpTransaksi(game, Dapat, HargaFix);
-                        }
-                    }
-                }
-            }
-        } 
-        else if (menuUtama == 2) {
-            system("cls");
-            cout << "=============TOP UP LISTRIK=============" << endl;
-            garisHorizontal();
-            cout << "1. Token Listrik Rumah\n";
-            cout << "0. Kembali\n";
-            garisHorizontal();
-            cout << "Pilih Menu: "; 
-            int listrik = topUpPilihListrik();
-            if (listrik == 0) topUpMainMenu();
-            else {
-                garisHorizontal();
-                cout << "Nomor Listrik: "; int No = topUpNolistrik();
-                if (No == 0) topUpMainMenu();
-                else {
-                    garisHorizontal();
-                    cout << "Nominal Pembelian:\n";
-                    cout << "1. Rp100000\n";
-                    cout << "2. Rp200000\n";
-                    cout << "3. Rp300000\n";
-                    cout << "4. Rp400000\n";
-                    cout << "5. Rp500000\n";
-                    garisHorizontal();
-                    cout << "Pilih Nominal: "; int HargaListrik = topUpDapatHargaListrik();
-                    if (HargaListrik == 0) topUpMainMenu();
-                    else {
-                        garisHorizontal();
-                        if (topUpConfirm() == 0) topUpMainMenu();
-                        else {
-                            int Token = topUpHargaListrik(HargaListrik);
-                            int HargaFixListrik = HargaListrik * 100000;
-                            topUpTransaksiListrik(Token, HargaFixListrik);
-                        }
-                    }
-                }
-            }
-        } 
-        else if (menuUtama == 0) {
-            cout << "Terima kasih telah menggunakan layanan kami." << endl;
-            break;
-        }
-    } while (true);
+int topUpMainMenuGame() {
+    system("cls");
+    system("clear");
+    cout << "=============TOP UP GAME=============" << endl;
+    cout << "Game yang tersedia:\n";
+    cout << "1. Mobile Legend\n";
+    cout << "2. PUBG\n";
+    cout << "3. Genshin Impact\n";
+    cout << "0. Kembali\n";
+    cout << "Pilih Game: "; 
+    int game = topUpPilihGame();
+    if (game == 0) return 0;
+    garisHorizontal();
+    cout << "ID Game: "; 
+    int Id = topUpId(game);
+    if (Id == 0) return 0;
+    garisHorizontal();
+    switch(game) {
+        case 1: 
+        cout << "1. 44 Diamond = Rp. 11.000" << endl;
+        cout << "2. 875 Diamond = Rp. 218.000" << endl;
+        cout << "3. 4830 Diamond = Rp. 1.140.000" << endl;
+        cout << "0. kembali" << endl;
+        break;
+        case 2:
+        cout << "1. 60 UC = Rp. 15.000" << endl;
+        cout << "2. 1800 UC = Rp. 375.000" << endl;
+        cout << "3. 8100 UC = Rp. 1.500.000" << endl;
+        cout << "0. kembali" << endl;
+        break;
+        case 3:
+        cout << "1. 60 Genesis Crystals = Rp. 14.000" << endl;
+        cout << "2. 1090 Genesis Crystals = Rp. 230.000" << endl;
+        cout << "3. 8080 Genesis Crystals = Rp. 1.470.000" << endl;
+        cout << "0. kembali" << endl;
+        break;
+    }
+    cout << "Pilih Nominal: "; 
+    int Harga = topUpDapatHarga(game);
+    if (Harga == 0) return 0;;
+    garisHorizontal();
+    if (topUpConfirm() == 0) return 0;
+    system("clear");
+    system("cls");
+    int Dapat = topUpHarga(game, Harga);
+    int HargaFix = topUpDapat(game, Harga);
+    topUpTransaksi(game, Dapat, HargaFix);
+    return 1;
+}
+int topUpMainMenuListrik() {
+    system("cls");
+    system("clear");
+    cout << "=============TOP UP LISTRIK=============" << endl;
+    garisHorizontal();
+    cout << "1. Token Listrik Rumah\n";
+    cout << "0. Kembali\n";
+    garisHorizontal();
+    cout << "Pilih Menu: "; 
+    int listrik = topUpPilihListrik();
+    if (listrik == 0) return 0;
+    garisHorizontal();
+    cout << "Nomor Listrik: "; int No = topUpNolistrik();
+    if (No == 0) return 0;
+    garisHorizontal();
+    cout << "Nominal Pembelian:\n";
+    cout << "1. Rp100000\n";
+    cout << "2. Rp200000\n";
+    cout << "3. Rp300000\n";
+    cout << "4. Rp400000\n";
+    cout << "5. Rp500000\n";
+    garisHorizontal();
+    cout << "Pilih Nominal: "; int HargaListrik = topUpDapatHargaListrik();
+    if (HargaListrik == 0) return 0;
+    garisHorizontal();
+    if (topUpConfirm() == 0) return 0;
+    system("clear");
+    system("cls");
+    int Token = topUpHargaListrik(HargaListrik);
+    int HargaFixListrik = HargaListrik * 100000;
+    topUpTransaksiListrik(Token, HargaFixListrik);
+    return 1;
+}
+
+int topUpMainMenu(int a) {
+    if (a != 1) {
+      system("clear");
+      system("cls");
+    }
+    int msg;
+    int menuUtama;
+    cout << "=============MENU UTAMA=============" << endl;
+    cout << "1. Top Up Game\n";
+    cout << "2. Token Listrik\n";
+    cout << "3. info-info\n";
+    cout << "0. keluar\n";
+    cout << "Pilih menu: "; 
+    cin >> menuUtama;
+    if (menuUtama == 1) msg = topUpMainMenuGame();
+    else if (menuUtama == 2)  msg = topUpMainMenuListrik();
+    else if (menuUtama == 0) {
+        cout << "Terima kasih telah menggunakan layanan kami." << endl;
+        return 0;
+    }
+    return topUpMainMenu(msg);
 }
 
 int main() {
-    topUpMainMenu();
+    topUpMainMenu(0);
     return 0;
 }
