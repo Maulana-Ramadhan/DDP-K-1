@@ -6,14 +6,14 @@ using namespace std;
 
 //Top up Game
 long saldo = 2000000;
-int mobileLegendDiamond = 0;
-int PUBGUC = 0;
-int genshinImpactGenesisCrystals = 0;
-long IdMobileLegend = 12345678;
-long IdPUBG = 12345678;
-long IdGenshinImpact = 12345678;
 long usernameSaldo = 87654321;
 int pinSaldo = 1234;
+long IdMobileLegend = 12345678;
+int mobileLegendDiamond = 0;
+long IdPUBG = 12345678;
+int PUBGUC = 0;
+long IdGenshinImpact = 12345678;
+int genshinImpactGenesisCrystals = 0;
 
 //Token Listrik
 int ListrikRumah = 0;
@@ -232,6 +232,51 @@ void topUpTransaksiListrik(int Token, int HargaListrik) {
     }
 }
 
+int topUpPilihInfo() {
+    int info;
+    cin >> info;
+    if (info < 0 || info > 5) {
+        cout << "Pilihan tidak tersedia, coba pilih ulang: ";
+        return topUpPilihListrik();
+    }
+    return info;
+}
+void infoRekening() {
+  cout << "============= INFO REKENING =============" << endl;
+  cout << "id saldo: " << usernameSaldo << endl;
+  cout << "pin saldo: " << pinSaldo << endl;
+  cout << "sisa saldo: " << saldo << endl;
+  int a;
+  cin >> a;
+}
+void infoMobileLegend() {
+  cout << "============= INFO MOBILE LEGEND =============" << endl;
+  cout << "id Mobile Legend: " << IdMobileLegend << endl;
+  cout << "Diamond Mobile Legend: " << mobileLegendDiamond << endl;
+  int a;
+  cin >> a;
+}
+void infoPUBG() {
+  cout << "============= INFO PUBG =============" << endl;
+  cout << "id PUBG: " << IdPUBG << endl;
+  cout << "UC PUBG: " << PUBGUC << endl;
+  int a;
+  cin >> a;
+}
+void infoGenshinImpact() {
+  cout << "============= INFO GENSHIN IMPACT =============" << endl;
+  cout << "id Genshin Impact: " << IdGenshinImpact << endl;
+  cout << "Crystals Genesis: " << genshinImpactGenesisCrystals << endl;
+  int a;
+  cin >> a;
+}
+void infoListrik() {
+  cout << "============= INFO LISTRIK =============" << endl;
+  cout << "nomor listrik rumah: " << NomorListrikRumah << endl;
+  cout << "token listrik rumah: " << ListrikRumah << endl;
+  int a;
+  cin >> a;
+}
 
 int topUpMainMenuGame() {
     system("cls");
@@ -315,6 +360,41 @@ int topUpMainMenuListrik() {
     topUpTransaksiListrik(Token, HargaFixListrik);
     return 1;
 }
+int infoInfo() {
+    system("cls");
+    system("clear");
+    cout << "============= INFO - INFO =============" << endl;
+    garisHorizontal();
+    cout << "1. Rekening\n";
+    cout << "2. Mobile Legend\n";
+    cout << "3. PUBG\n";
+    cout << "4. Genshin Impact\n";
+    cout << "5. Listrik\n";
+    cout << "0. Kembali\n";
+    garisHorizontal();
+    cout << "Pilih Menu: ";
+    int info = topUpPilihInfo();
+    if (info == 1) {
+      infoRekening();
+    } 
+    else if (info == 2) {
+      infoMobileLegend();
+    }
+    if (info == 3) {
+      infoPUBG();
+    } 
+    else if (info == 4) {
+      infoGenshinImpact();
+    }
+    if (info == 5) {
+      infoListrik();
+    } 
+    else if (info == 0) {
+      return 0;
+    }
+    garisHorizontal();
+    return infoInfo();
+}
 
 int topUpMainMenu(int a) {
     if (a != 1) {
@@ -332,6 +412,7 @@ int topUpMainMenu(int a) {
     cin >> menuUtama;
     if (menuUtama == 1) msg = topUpMainMenuGame();
     else if (menuUtama == 2)  msg = topUpMainMenuListrik();
+    else if (menuUtama == 3)  msg = infoInfo();
     else if (menuUtama == 0) {
         cout << "Terima kasih telah menggunakan layanan kami." << endl;
         return 0;
