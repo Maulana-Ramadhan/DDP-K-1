@@ -421,6 +421,8 @@ int topUpMainMenu(int a) {
 }
 
 int main() {
-    topUpMainMenu(0);
+    cout << "hint: lihat info-info terlebih dahulu" << endl;
+    cout << "hint: semua inputan adalah angka" << endl;
+    topUpMainMenu(1);
     return 0;
 }
